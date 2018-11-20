@@ -44,7 +44,7 @@
 #define CONF_BOARD_USB_PORT
 
 /* Configure ADC example pins */
-#define CONF_BOARD_ADC
+//#define CONF_BOARD_ADC
 
 /* Configure PWM LED0 pin */
 //#define CONF_BOARD_PWM_LED0
