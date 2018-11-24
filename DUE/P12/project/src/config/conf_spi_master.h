@@ -1,7 +1,7 @@
 /**
  * \file
  *
- * \brief Board configuration.
+ * \brief Spi Master configuration.
  *
  * Copyright (c) 2011-2018 Microchip Technology Inc. and its subsidiaries.
  *
@@ -34,58 +34,24 @@
  * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
  */
 
-#ifndef CONF_BOARD_H
-#define CONF_BOARD_H
+#ifndef CONF_SPI_MASTER_H_INCLUDED
+#define CONF_SPI_MASTER_H_INCLUDED
 
-/* Configure UART pins */
-//#define CONF_BOARD_UART_CONSOLE
+/* Possibility to change low-level configurations here */
 
-/* Enable USB interface (USB) for host mode */
-//#define CONF_BOARD_USB_PORT
+//! Default Config Spi Master Delay BCS
+#define CONFIG_SPI_MASTER_DELAY_BCS            0
 
-/* Configure ADC example pins */
-//#define CONF_BOARD_ADC
+//! Default Config Spi Master Bits per Transfer Definition
+#define CONFIG_SPI_MASTER_BITS_PER_TRANSFER    8
 
-/* Configure PWM LED0 pin */
-//#define CONF_BOARD_PWM_LED0
+//! Default Config Spi Master Delay BCT
+#define CONFIG_SPI_MASTER_DELAY_BCT            0
 
-/* Configure PWM LED1 pin */
-//#define CONF_BOARD_PWM_LED1
+//! Default Config Spi Master Delay BS
+#define CONFIG_SPI_MASTER_DELAY_BS             0
 
-/* Configure PWM LED2 pin */
-//#define CONF_BOARD_PWM_LED2
+//! Default Config Spi Master Dummy Field
+#define CONFIG_SPI_MASTER_DUMMY                0xFF
 
-/* Configure SPI0 pins */
-#define CONF_BOARD_SPI0
-#define CONF_BOARD_SPI0_NPCS0
-//#define CONF_BOARD_SPI0_NPCS1
-//#define CONF_BOARD_SPI0_NPCS2
-//#define CONF_BOARD_SPI0_NPCS3
-
-/* Configure SPI1 pins */
-//#define CONF_BOARD_SPI1
-//#define CONF_BOARD_SPI1_NPCS0
-//#define CONF_BOARD_SPI1_NPCS1
-//#define CONF_BOARD_SPI1_NPCS2
-//#define CONF_BOARD_SPI1_NPCS3
-
-//#define CONF_BOARD_TWI0
-
-//#define CONF_BOARD_TWI1
-
-/* Configure USART RXD pin */
-//#define CONF_BOARD_USART_RXD
-
-/* Configure USART TXD pin */
-//#define CONF_BOARD_USART_TXD
-
-/* Configure USART CTS pin */
-//#define CONF_BOARD_USART_CTS
-
-/* Configure USART RTS pin */
-//#define CONF_BOARD_USART_RTS
-
-/* Configure USART synchronous communication SCK pin */
-//#define CONF_BOARD_USART_SCK
-
-#endif // CONF_BOARD_H
+#endif /* CONF_SPI_MASTER_H_INCLUDED */

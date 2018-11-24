@@ -59,6 +59,28 @@
 #include <compiler.h>
 #include <status_codes.h>
 
+// From module: FreeRTOS - PDC Interface Layer
+#include <freertos_peripheral_control.h>
+#include <freertos_peripheral_control_private.h>
+
+// From module: FreeRTOS - kernel 10.0.0
+#include <FreeRTOS.h>
+#include <StackMacros.h>
+#include <croutine.h>
+#include <deprecated_definitions.h>
+#include <event_groups.h>
+#include <list.h>
+#include <message_buffer.h>
+#include <mpu_wrappers.h>
+#include <portable.h>
+#include <projdefs.h>
+#include <queue.h>
+#include <semphr.h>
+#include <stack_macros.h>
+#include <stream_buffer.h>
+#include <task.h>
+#include <timers.h>
+
 // From module: GPIO - General purpose Input/Output
 #include <gpio.h>
 
@@ -70,6 +92,9 @@
 
 // From module: Interrupt management - SAM implementation
 #include <interrupt.h>
+
+// From module: PDC - Peripheral DMA Controller Example
+#include <pdc.h>
 
 // From module: PIO - Parallel Input/Output Controller
 #include <pio.h>
@@ -83,6 +108,13 @@
 
 // From module: SAM3X startup code
 #include <exceptions.h>
+
+// From module: SPI - SAM Implementation
+#include <spi_master.h>
+#include <spi_master.h>
+
+// From module: SPI - Serial Peripheral Interface
+#include <spi.h>
 
 // From module: System Clock Control - SAM3X/A implementation
 #include <sysclk.h>

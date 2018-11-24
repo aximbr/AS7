@@ -6,11 +6,12 @@
  */ 
 #include "adc_DUE.h"
 #include "adc.h"
+#include "sysclk.h"
 
 void adc_due_init(void){
 	const enum adc_channel_num_t channel_list[]={ADC_CHANNEL_0,};
 	//uint32_t main_clock = sysclk_get_cpu_hz();
-		
+	sysclk_enable_peripheral_clock(ID_ADC);	
 	adc_reset(ADC);	
 	adc_init(ADC, 48000000, ADC_FREQ_MAX, ADC_STARTUP_TIME_1);
 	adc_set_resolution(ADC, ADC_12_BITS);
