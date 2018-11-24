@@ -12,14 +12,14 @@
 
 int main(void)
 {
-    /* Ativa a Porta B, pino 0 e 7 como saída */
-    DDRB |= (1<<DDB0) | (1<<DDB7);
-	PORTB |= (1<<PB0) | (1<<PB7);  // Acende os Leds conectados em PB0 (53) e PB7 (13)
+    /* Ativa a Porta B, pino 6 e 7 como saída */
+    DDRB |= (1<<DDB7) | (1<<DDB6);
+	PORTB |= (1<<PB7) | (1<<PB6);  // Acende os Leds conectados em PB7 (13) e PB6 (12)
     while (1) 
     {
-		PINB |= (1<<PB0); //Alterna o Led em PB0
+		PINB |= (1<<PB7); //Alterna o Led em PB7
 		_delay_ms(250);
-		PINB |= (1<<PB7);  //Alterna o Led em PB7
+		PINB |= (1<<PB6);  //Alterna o Led em PB6
 		_delay_ms(250);
     }
 }

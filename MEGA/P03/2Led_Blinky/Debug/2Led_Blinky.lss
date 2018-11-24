@@ -21,11 +21,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   8 .debug_frame  00000024  00000000  00000000  00001e58  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000055a  00000000  00000000  00001e7c  2**0
+  9 .debug_str    0000055e  00000000  00000000  00001e7c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000048  00000000  00000000  000023d6  2**0
+ 10 .debug_loc    00000048  00000000  00000000  000023da  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000010  00000000  00000000  0000241e  2**0
+ 11 .debug_ranges 00000010  00000000  00000000  00002422  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -166,19 +166,19 @@ Disassembly of section .text:
 
 int main(void)
 {
-    /* Ativa a Porta B, pino 0 e 7 como saída */
-    DDRB |= (1<<DDB0) | (1<<DDB7);
+    /* Ativa a Porta B, pino 6 e 7 como saída */
+    DDRB |= (1<<DDB7) | (1<<DDB6);
   fa:	84 b1       	in	r24, 0x04	; 4
-  fc:	81 68       	ori	r24, 0x81	; 129
+  fc:	80 6c       	ori	r24, 0xC0	; 192
   fe:	84 b9       	out	0x04, r24	; 4
-	PORTB |= (1<<PB0) | (1<<PB7);  // Acende os Leds conectados em PB0 (53) e PB7 (13)
+	PORTB |= (1<<PB7) | (1<<PB6);  // Acende os Leds conectados em PB7 (13) e PB6 (12)
  100:	85 b1       	in	r24, 0x05	; 5
- 102:	81 68       	ori	r24, 0x81	; 129
+ 102:	80 6c       	ori	r24, 0xC0	; 192
  104:	85 b9       	out	0x05, r24	; 5
     while (1) 
     {
-		PINB |= (1<<PB0); //Alterna o Led em PB0
- 106:	18 9a       	sbi	0x03, 0	; 3
+		PINB |= (1<<PB7); //Alterna o Led em PB7
+ 106:	1f 9a       	sbi	0x03, 7	; 3
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
@@ -195,8 +195,8 @@ int main(void)
  116:	00 c0       	rjmp	.+0      	; 0x118 <main+0x1e>
  118:	00 00       	nop
 		_delay_ms(250);
-		PINB |= (1<<PB7);  //Alterna o Led em PB7
- 11a:	1f 9a       	sbi	0x03, 7	; 3
+		PINB |= (1<<PB6);  //Alterna o Led em PB6
+ 11a:	1e 9a       	sbi	0x03, 6	; 3
  11c:	2f ef       	ldi	r18, 0xFF	; 255
  11e:	84 e3       	ldi	r24, 0x34	; 52
  120:	9c e0       	ldi	r25, 0x0C	; 12
