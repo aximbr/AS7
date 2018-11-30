@@ -24,7 +24,19 @@
 #define CLK_PIN   4  //D7 <-> PH4
 #define DATA_PIN  5  //D8 <-> PH5
 
-#define REFRESH 200  //Taxa de refresh e também base do contador
+#define REFRESH 1000  //Taxa de refresh ou base de tempo do contador (ms)
+
+/* Global variables */
+
+int volatile tick_count=0;  //contador de eventos
+
+ISR(TIMER1_COMPA_vect)
+{
+/*cada vez que o contador atinge o valor do comparador */
+tick_count++;
+}
+
+
 
 /* Segment byte maps for numbers 0 to 9 */
 const uint8_t SEGMENT_MAP[] = {0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0X80,0X90};
@@ -40,6 +52,33 @@ void setup(void)
 	DDRH |= _BV(CLK_PIN) | _BV(DATA_PIN);
 	DDRG |= _BV(LATCH_PIN);
 	
+	/*inicializa o timer1 (16 bits) */
+	cli();  // desabilita interrupções
+	TCNT0 = 0;                   //Limpa o contador
+	//Limpa a programação do TCCR1
+	TCCR1A = 0x00;
+	TCCR1B = 0x00;
+	
+	/*clock= 16000000 Hz
+	* prescaler = 1024
+	* timer resolution = 1/(clock/prescaler) = 64 us = resolution
+	* tempo desejado (t) = 1 ms
+	* quantidade de ticks necessários para chegar ao tempo (t) desejado = count
+	* count = (t/resolution) - 1
+	* count = (1 ms/64 us) -1 = 15   */
+	
+	// set compare match register to desired timer count:
+	OCR1A = 15;
+	// turn on CTC mode:
+	TCCR1B |= (1 << WGM12);
+	// Set CS10 and CS12 bits for 1024 prescaler:
+	TCCR1B |= (1 << CS10);
+	TCCR1B |= (1 << CS12);
+	// enable timer compare interrupt:
+	TIMSK1 |= (1 << OCIE1A);
+	
+	// enable global interrupts:
+	sei();
 }
 
 /* Write a decimal number between 0 and 9 to one of the 4 digits of the display */
@@ -69,31 +108,30 @@ void WriteNumberToSegment(uint8_t Segment, uint8_t Value)
 
 int main(void)
 {
-	int t= REFRESH; //refresh do display
 	/* Replace with your application code */
 	setup();
 	
+	tick_count = 0;
 	
 	while (1)
 	{
 		
-		
-		for (int m=0; m<10; m++) {
+		for (int m=0; m<6; m++) {
 			for (int c=0; c<10; c++) { 
-		        for (int d=0;d<10;d++) { 
+		        for (int d=0;d<6;d++) { 
 		            for (int u=0;u<10;u++) {
-					    while(t){ 
+					    while(tick_count < REFRESH){ 
 					        WriteNumberToSegment(0 , m);
 					        WriteNumberToSegment(1 , c);
 						    WriteNumberToSegment(2 , d);
 							WriteNumberToSegment(3 , u);
-							t--;}
-					     t = REFRESH;
-					}
-				}
-			}
-		}
+							}
+							tick_count = 0;
+					     }
+				      }
+			     }
+		     }
 		   
-	}
+	   }
 }
 
